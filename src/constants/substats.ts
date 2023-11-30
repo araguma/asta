@@ -59,22 +59,6 @@ const substats: {
         'precision': 0,
         'weight': 1,
     },
-    'crit-rate': {
-        'parse': ['rate'],
-        'canonical': 'Crit Rate',
-        'base': 2.592000039294362,
-        'step': 0.32400002237409353,
-        'precision': 1,
-        'weight': 1,
-    },
-    'crit-damage': {
-        'parse': ['dmg'],
-        'canonical': 'Crit DMG',
-        'base': 5.184000078588724,
-        'step': 0.6480000447481871,
-        'precision': 1,
-        'weight': 1,
-    },
     'effect-hit-rate': {
         'parse': ['hit'],
         'canonical': 'Effect Hit Rate',
@@ -98,7 +82,23 @@ const substats: {
         'step': 0.6480000447481871,
         'precision': 1,
         'weight': 1,
-    }
+    },
+    'crit-rate': {
+        'parse': ['rate'],
+        'canonical': 'Crit Rate',
+        'base': 2.592000039294362,
+        'step': 0.32400002237409353,
+        'precision': 1,
+        'weight': 1,
+    },
+    'crit-damage': {
+        'parse': ['dmg'],
+        'canonical': 'Crit DMG',
+        'base': 5.184000078588724,
+        'step': 0.6480000447481871,
+        'precision': 1,
+        'weight': 1,
+    },
 };
 
 export default substats;

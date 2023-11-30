@@ -83,7 +83,7 @@ export default {
             const enhances = Math.floor(level / 3);
             const min = floor(base, precision);
             const max = floor((base + step * 2) * (enhances + 1), precision);
-            const value = parseFloat(line.match(/[^ ]*$/)?.[0] ?? '0');
+            const value = parseFloat(line.match(/[\d\.\%]*$/)?.[0] ?? '0');
             const score = handleNaN((value - min) / (max - min)) * weight;
             total += score * ((1 + enhances) / (4 + enhances));
 

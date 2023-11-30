@@ -8,42 +8,42 @@ const scores: Score[] = [
     },
     {
         name: 'SS',
-        threshold: 0.85,
+        threshold: 0.80,
         color: '#e67e22',
     },
     {
         name: 'S',
-        threshold: 0.80,
+        threshold: 0.70,
         color: '#f1c40f',
     },
     {
         name: 'A',
-        threshold: 0.75,
+        threshold: 0.60,
         color: '#2ecc71',
     },
     {
         name: 'B',
-        threshold: 0.70,
+        threshold: 0.50,
         color: '#3498db',
     },
     {
         name: 'C',
-        threshold: 0.65,
+        threshold: 0.40,
         color: '#9b59b6',
     },
     {
         name: 'D',
-        threshold: 0.60,
+        threshold: 0.30,
         color: '#34495e',
     },
     {
         name: 'E',
-        threshold: 0.55,
+        threshold: 0.20,
         color: '#95a5a6',
     },
     {
         name: 'F',
-        threshold: 0.50,
+        threshold: 0.10,
         color: '#7f8c8d',
     },
     {

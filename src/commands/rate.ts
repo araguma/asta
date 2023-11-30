@@ -22,7 +22,7 @@ export default {
             );
         for(const key in substats) {
             const { canonical } = substats[key as keyof typeof substats];
-            builder.addStringOption((option) => option
+            builder.addNumberOption((option) => option
                 .setName(key)
                 .setDescription(`${canonical} substat`)
                 .setRequired(false)
@@ -52,6 +52,12 @@ export default {
         const level = options.getNumber('level') ?? parseInt(text.match(/(?<=\+)\d+/)?.[0] ?? '0');
         const lines = text.split('\n').slice(-5, -1).filter((line) => line.length > 0);
         !text.includes('+') || lines.shift();
+
+        for(const key in substats) {
+            const { parse } = substats[key as keyof typeof substats];
+            const value = options.getNumber(key);
+            if(value) lines.push(`${parse.join('')} ${value}`);
+        }
 
         let total = 0;
         const rate = (substat: Substat, line: string) => {

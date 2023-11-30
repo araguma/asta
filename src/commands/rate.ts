@@ -51,7 +51,7 @@ export default {
 
         const level = options.getNumber('level') ?? parseInt(text.match(/(?<=\+)\d+/)?.[0] ?? '0');
         const lines = text.split('\n').slice(-5, -1).filter((line) => line.length > 0);
-        !text.includes('+') ?? lines.unshift();
+        !text.includes('+') || lines.shift();
 
         let total = 0;
         const rate = (substat: Substat, line: string) => {

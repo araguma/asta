@@ -55,18 +55,17 @@ export default {
             reply: 'Unable to detect relic level, please specify it manually',
             error: 'Invalid relic level',
         });
-        let lines = text.split('\n').filter((line) => line.length > 0);
-        if(lines.length < 5) await error(interaction, {
-            reply: 'Unable to detect relic substats, please specify them manually',
-            error: 'Invalid relic substats',
-        });
-        lines = lines.slice(lines[lines.length - 5].includes('+') ? -3 : -4);
 
+        let lines = text.split('\n').filter((line) => line.length > 0);
         for(const key in substats) {
             const { parse } = substats[key as keyof typeof substats];
             const value = options.getNumber(key);
             if(value) lines.push(`${parse.join('')} ${value}`);
         }
+        lines.find((line, index) => {
+            if(line.includes('+'))
+                lines = lines.slice(index + 2);
+        });
 
         let total = 0;
         const rate = (substat: Substat, line: string) => {

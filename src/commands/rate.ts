@@ -1,5 +1,6 @@
 import scores from '@/constants/scores';
 import substats from '@/constants/substats';
+import error from '@/libs/error';
 import { Command, Substat } from '@/types';
 import { EmbedBuilder } from 'discord.js';
 import sharp from 'sharp';
@@ -18,6 +19,8 @@ export default {
             .addNumberOption((option) => option
                 .setName('level')
                 .setDescription('The level of the relic')
+                .setMinValue(0)
+                .setMaxValue(15)
                 .setRequired(false)
             );
         for(const key in substats) {
@@ -33,8 +36,6 @@ export default {
         if(!interaction.isChatInputCommand()) return;
 
         const options = interaction.options;
-
-        interaction.deferReply();
         const embed = new EmbedBuilder();
         let description = '```\n';
 
@@ -49,9 +50,17 @@ export default {
         await worker.terminate();
         const text = result.data.text;
 
-        const level = options.getNumber('level') ?? parseInt(text.match(/(?<=\+)\d+/)?.[0] ?? '0');
-        const lines = text.split('\n').slice(-5, -1).filter((line) => line.length > 0);
-        !text.includes('+') || lines.shift();
+        const level = options.getNumber('level') ?? parseInt(text.match(/(?<=\+)\d+/)?.[0] ?? '-1');
+        if(level < 0 || level > 15) await error(interaction, {
+            reply: 'Unable to detect relic level, please specify it manually',
+            error: 'Invalid relic level',
+        });
+        let lines = text.split('\n').filter((line) => line.length > 0);
+        if(lines.length < 5) await error(interaction, {
+            reply: 'Unable to detect relic substats, please specify them manually',
+            error: 'Invalid relic substats',
+        });
+        lines = lines.slice(lines[lines.length - 5].includes('+') ? -3 : -4);
 
         for(const key in substats) {
             const { parse } = substats[key as keyof typeof substats];
@@ -88,7 +97,7 @@ export default {
             }
         });
 
-        interaction.editReply({
+        await interaction.editReply({
             embeds: [ embed.setDescription(description + '```') ],
         });
     }

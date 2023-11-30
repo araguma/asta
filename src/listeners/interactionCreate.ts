@@ -8,13 +8,12 @@ export default {
         try {
             const dir = join(__rootname, 'commands');
             const command = require(join(dir, interaction.commandName)).default as Command;
-            command.handle(interaction);
+            await interaction.deferReply();
+            await command.handle(interaction);
         } catch(error) {
             console.error(error);
-            await interaction.reply({
-                content: 'An error occured while executing this command!',
-                ephemeral: true,
-            });
+            if((await interaction.fetchReply()).content.length === 0)
+                await interaction.editReply('An error occurred while executing this command');
         }
     }
 } satisfies Listener<'interactionCreate'>;

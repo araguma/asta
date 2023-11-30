@@ -66,6 +66,16 @@ export default {
             if(line.includes('+'))
                 lines = lines.slice(index + 2);
         });
+        if(lines.length < 3) await error(interaction, {
+            reply: `Missing at least ${3 - lines.length} substat(s), please specify them manually`,
+            error: 'Invalid substat count',
+        });
+        if(lines.length > 4) await error(interaction, {
+            reply: `${lines.length - 4} extra substat(s) detected, do you have extra substat arguments?`,
+            error: 'Invalid substat count',
+        });
+
+        console.log(lines);
 
         let total = 0;
         const rate = (substat: Substat, line: string) => {

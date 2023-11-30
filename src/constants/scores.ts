@@ -49,7 +49,7 @@ const scores: Score[] = [
     {
         name: `Trailblazer's Beloved`,
         threshold: 0,
-        color: '#2c3e50',
+        color: '#000000',
     }
 ];
 

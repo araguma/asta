@@ -1,0 +1,18 @@
+{
+    "compilerOptions": {
+        "target": "ES2020",
+        "module": "NodeNext",
+        "moduleResolution": "NodeNext",
+        "strict": true,
+        "rootDir": "src/",
+        "outDir": "dist/",
+        "baseUrl": "src/",
+        "paths": {
+            "@/*": ["*"]
+        },
+        "lib": ["ES2023.Array"],
+    },
+    "ts-node": {
+        "require": ["tsconfig-paths/register"],
+    },
+}

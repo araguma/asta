@@ -60,7 +60,7 @@ export default {
             const min = floor(base, precision);
             const max = floor((base + step * 2) * (enhances + 1), precision);
             const value = parseFloat(line.match(/[^ ]*$/)?.[0] ?? '0');
-            const score = curve(handleNaN((value - min) / (max - min)) * weight);
+            const score = handleNaN((value - min) / (max - min)) * weight;
             total += score * ((1 + enhances) / (4 + enhances));
 
             description += substat.canonical.padEnd(24);
@@ -95,8 +95,4 @@ function handleNaN(value: number) {
 function floor(value: number, precision: number | undefined = undefined) {
     const multiplier = Math.pow(10, precision ?? 0);
     return Math.floor(value * multiplier) / multiplier;
-}
-
-function curve(x: number): number {
-    return 1 - Math.pow(1 - x, 4);
 }

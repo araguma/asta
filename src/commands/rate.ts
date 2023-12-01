@@ -106,7 +106,7 @@ export default {
         scores.find((score) => {
             if(total >= score.threshold) {
                 embed.setColor(score.color);
-                embed.setTitle(`${score.name} - ${(total * 100).toFixed(2)}% Efficiency (+${level})`);
+                embed.setTitle(`${score.name} - ${(total * 100).toFixed(2)}% Optimized (+${level})`);
                 return true;
             }
         });

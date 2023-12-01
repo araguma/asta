@@ -78,18 +78,16 @@ export default {
             reply: `${lines.length - 4} extra substat(s) detected, do you have extra substat arguments?`,
             error: 'Invalid substat count',
         });
-
+        
         let total = 0;
         const rate = (substat: Substat, line: string) => {
-            const { base, step, precision, weight } = substat;
-            const enhances = Math.floor(level / 3);
-            const min = floor(base, precision);
-            const max = floor((base + step * 2) * (enhances + 1), precision);
-            const value = parseFloat(line.match(/[\d\.\%]*$/)?.[0] ?? '0');
-            const score = handleNaN((value - min) / (max - min)) * weight;
-            total += score * ((1 + enhances) / (4 + enhances));
+            const { canonical, base, step, precision, weight } = substat;
+            const rolls = Math.floor(level / 3);
+            const value = parseFloat(line.match(/[\d\.\%]*$/)?.[0] ?? '-1');
+            const score = (value / floor((base + step * 2) * (rolls + 1), precision)) * weight;
+            total += score * ((1 + rolls) / (4 + rolls));
 
-            description += substat.canonical.padEnd(24);
+            description += canonical.padEnd(24);
             description += `${value.toFixed(precision)}${precision ? '%' : ''}`.padStart(8);
             description += ` (${(score * 100).toFixed(2)}%)`;
             description += '\n';
@@ -109,14 +107,13 @@ export default {
         });
 
         await interaction.editReply({
-            embeds: [ embed.setDescription(description + '```') ],
+            embeds: [
+                embed
+                    .setDescription(description + '```'),
+            ],
         });
     }
 } satisfies Command;
-
-function handleNaN(value: number) {
-    return isNaN(value) ? 1 : value;
-}
 
 function floor(value: number, precision: number | undefined = undefined) {
     const multiplier = Math.pow(10, precision ?? 0);

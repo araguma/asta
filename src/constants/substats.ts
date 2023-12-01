@@ -92,7 +92,7 @@ const substats: {
         'weight': 1,
     },
     'crit-damage': {
-        'parse': ['dmg'],
+        'parse': ['mg'],
         'canonical': 'Crit DMG',
         'base': 5.184000078588724,
         'step': 0.6480000447481871,

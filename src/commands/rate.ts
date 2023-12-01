@@ -88,7 +88,8 @@ export default {
             const { canonical, base, step, precision, weight } = substat;
             const rolls = Math.floor(level / 3);
             const value = parseFloat(line.match(/[\d\.\%]*$/)?.[0] ?? '-1');
-            const score = (value / floor((base + step * 2) * (rolls + 1), precision)) * weight;
+            const score = (value / normalize((base + step * 2) * (rolls + 1), precision)) * weight;
+            console.log(value, normalize((base + step * 2) * (rolls + 1), precision))
             total += score * ((1 + rolls) / (4 + rolls));
 
             description += canonical.padEnd(24);
@@ -119,7 +120,10 @@ export default {
     }
 } satisfies Command;
 
-function floor(value: number, precision: number | undefined = undefined) {
-    const multiplier = Math.pow(10, precision ?? 0);
-    return Math.floor(value * multiplier) / multiplier;
+function normalize(value: number, precision: number = 0) {
+    const multiplier = Math.pow(10, precision);
+    value *= multiplier;
+    if(Math.ceil(value) === Math.floor(value + Math.pow(10, -precision)))
+        return Math.ceil(value) / multiplier;
+    return Math.floor(value) / multiplier;
 }

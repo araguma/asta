@@ -89,7 +89,6 @@ export default {
             const rolls = Math.floor(level / 3);
             const value = parseFloat(line.match(/[\d\.\%]*$/)?.[0] ?? '-1');
             const score = (value / normalize((base + step * 2) * (rolls + 1), precision)) * weight;
-            console.log(value, normalize((base + step * 2) * (rolls + 1), precision))
             total += score * ((1 + rolls) / (4 + rolls));
 
             description += canonical.padEnd(24);
